@@ -20,5 +20,10 @@
     "connect_hex_data": 0,
     "redirect": "",
     "fast_open": false,
-    "friendly_detect": 1
+    "friendly_detect": 1,
+    "verbose":0,
+    "detect_hex_list":{},
+    "detect_text_list":{},
+    "relay_rules":{},
+    "is_multi_user":0
 }
