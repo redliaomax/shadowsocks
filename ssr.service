@@ -1,14 +1,16 @@
 [Unit]
-Description=ssr deamon
+Description=ShadowsocksR server
+After=network.target
 After=rc-local.service
 
 [Service]
-Type=simple
-User=root
-Group=root
-WorkingDirectory=/root/shadowsocks
-ExecStart=/usr/bin/python server.py
-Restart=always
+LimitCORE=infinity
 LimitNOFILE=512000
+LimitNPROC=512000
+Type=simple
+WorkingDirectory=/usr/local/shadowsocks
+ExecStart=/usr/local/shadowsocks/server.py
+Restart=always
+
 [Install]
 WantedBy=multi-user.target
