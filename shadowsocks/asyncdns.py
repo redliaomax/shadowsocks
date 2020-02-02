@@ -267,7 +267,7 @@ STATUS_IPV6 = 1
 
 class DNSResolver(object):
 
-    def __init__(self):
+    def __init__(self,nodeinfo={}):
         self._loop = None
         self._hosts = {}
         self._hostname_status = {}
@@ -278,6 +278,7 @@ class DNSResolver(object):
         self._servers = None
         self._parse_resolv()
         self._parse_hosts()
+        self.nodeinfo = nodeinfo
         # TODO monitor hosts change and reload hosts
         # TODO parse /etc/gai.conf and follow its rules
 
@@ -423,9 +424,6 @@ class DNSResolver(object):
             self._loop.add(self._sock, eventloop.POLL_IN, self)
         else:
             data, addr = sock.recvfrom(1024)
-            if addr not in self._servers:
-                logging.warn('received a packet other than our dns')
-                return
             self._handle_data(data)
 
     def handle_periodic(self):
@@ -448,7 +446,18 @@ class DNSResolver(object):
         for server in self._servers:
             logging.debug('resolving %s with type %d using server %s',
                           hostname, qtype, server)
-            self._sock.sendto(req, server)
+            try:
+                if self.nodeinfo['vedio_dns'] and self.nodeinfo['vedio_website']:
+                    for x in self.nodeinfo['vedio_website'].split('|'):
+                        if x in hostname:
+                            self._sock.sendto(req, (self.nodeinfo['vedio_dns'], 53))
+                        else:
+                            self._sock.sendto(req, server)
+                else:
+                    self._sock.sendto(req, server)
+            except Exception:
+                self._sock.sendto(req, server)
+
 
     def resolve(self, hostname, callback):
         if type(hostname) != bytes:
@@ -552,3 +561,4 @@ def test():
 
 if __name__ == '__main__':
     test()
+

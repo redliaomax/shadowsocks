@@ -31,6 +31,7 @@ import traceback
 from socket import *
 from configloader import load_config, get_config
 
+import webapi_utils
 
 class MainThread(threading.Thread):
 
@@ -49,7 +50,6 @@ class ServerPool(object):
     def __init__(self):
         shell.check_python()
         self.config = shell.get_config(False)
-        self.dns_resolver = asyncdns.DNSResolver()
         if not self.config.get('dns_ipv6', False):
             asyncdns.IPV6_CONNECTION_SUPPORT = False
 
@@ -58,7 +58,9 @@ class ServerPool(object):
         self.eventloop_pool = {}
         self.dns_resolver_pool = {}
 
-        self.dns_resolver = asyncdns.DNSResolver()
+        WebApi = webapi_utils.WebApi()
+        nodeinfo = WebApi.getApi('nodes/%d/info' %(get_config().NODE_ID))
+        self.dns_resolver = asyncdns.DNSResolver(nodeinfo)
 
         self.loop = eventloop.EventLoop()
         self.thread = MainThread((self.loop, self.dns_resolver, self.mgr))
