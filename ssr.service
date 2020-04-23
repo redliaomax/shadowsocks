@@ -9,7 +9,7 @@ LimitNOFILE=512000
 LimitNPROC=512000
 Type=simple
 WorkingDirectory=/usr/local/shadowsocks
-ExecStart=/usr/local/shadowsocks/server.py
+ExecStart=python3 /usr/local/shadowsocks/server.py
 Restart=always
 
 [Install]

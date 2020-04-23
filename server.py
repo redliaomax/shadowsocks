@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Copyright 2015 breakwall
@@ -29,7 +29,6 @@ if __name__ == "__main__":
 
 import db_transfer
 import web_transfer
-import speedtest_thread
 import auto_thread
 import auto_block
 from multiprocessing import Process
@@ -61,9 +60,6 @@ def main():
     else:
         threadMain = MainThread(db_transfer.DbTransfer)
     threadMain.start()
-    if get_config().SPEEDTEST != 0:
-        threadSpeedtest = MainThread(speedtest_thread.Speedtest)
-        threadSpeedtest.start()
     if get_config().AUTOEXEC != 0:
         threadAutoexec = MainThread(auto_thread.AutoExec)
         threadAutoexec.start()
@@ -79,9 +75,6 @@ def main():
 
         traceback.print_exc()
         threadMain.stop()
-        if get_config().SPEEDTEST != 0:
-            if threadSpeedtest.is_alive():
-                threadSpeedtest.stop()
         if get_config().AUTOEXEC != 0:
             if threadAutoexec.is_alive():
                 threadAutoexec.stop()
