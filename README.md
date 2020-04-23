@@ -1,66 +1,33 @@
-shadowsocks
+Shadowsocks-mod
 ===========
 
-[![PyPI version]][PyPI]
-[![Build Status]][Travis CI]
-[![Coverage Status]][Coverage]
+UIM 配套的后端程序
 
-A fast tunnel proxy that helps you bypass firewalls.
+### 关于 Python2
+dbq, Python2 实在是太难支持了呜呜呜，请 Python2 用户使用分支 `py2` 克隆代码。
 
-Server
-------
+*猫猫注：0202年了，该换掉Python2了*
 
-### Install
 
-一鍵安裝脚本請參見 [此鏈接](https://github.com/Anankke/ss-panel-v3-mod_Uim/wiki/%E5%90%8E%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC)
-
+### Python2 Install
 Debian / Ubuntu:
-
-    apt-get install python-pip
-    pip install shadowsocks
+    
+    apt update && apt install python-pip libffi-dev libssl-dev git
+    git clone -b py2 https://github.com/Anankke/shadowsocks-mod.git
+    cd shadowsocks-mod
+	pip install -r requirements.txt
 
 CentOS:
 
-    yum install python-setuptools && easy_install pip
-    pip install shadowsocks
-
-Windows:
-
-See [Install Server on Windows]
-
-### Usage
-
-    ssserver -p 443 -k password -m aes-256-cfb
-
-To run in the background:
-
-    sudo ssserver -p 443 -k password -m aes-256-cfb --user nobody -d start
-
-To stop:
-
-    sudo ssserver -d stop
-
-To check the log:
-
-    sudo less /var/log/shadowsocks.log
-
-Check all the options via `-h`. You can also use a [Configuration] file
-instead.
-
-Client
-------
-
-* [Windows] / [OS X]
-* [Android] / [iOS]
-* [OpenWRT]
-
-Use GUI clients on your local PC/phones. Check the README of your client
-for more information.
-
-Documentation
--------------
-
-You can find all the documentation in the [Wiki].
+    yum install epel-release
+    yum update
+    yum install libffi libffi-devel openssl-devel python2-pip
+    git clone -b py2 https://github.com/Anankke/shadowsocks-mod.git
+    cd shadowsocks-mod
+    pip install -r requirements.txt
+    
+### Python3 TurnKey Install
+请参见 https://wiki.sspanel.host/#/onekey-install-for-node
 
 License
 -------
@@ -78,31 +45,3 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations
 under the License.
-
-Bugs and Issues
-----------------
-
-* [Troubleshooting]
-* [Issue Tracker]
-* [Mailing list]
-
-
-
-[Android]:           https://github.com/shadowsocks/shadowsocks-android
-[Build Status]:      https://travis-ci.org/falseen/shadowsocks.svg?branch=manyuser-travis
-[Configuration]:     https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File
-[Coverage Status]:   https://jenkins.shadowvpn.org/result/shadowsocks
-[Coverage]:          https://jenkins.shadowvpn.org/job/Shadowsocks/ws/PYENV/py34/label/linux/htmlcov/index.html
-[Debian sid]:        https://packages.debian.org/unstable/python/shadowsocks
-[iOS]:               https://github.com/shadowsocks/shadowsocks-iOS/wiki/Help
-[Issue Tracker]:     https://github.com/shadowsocks/shadowsocks/issues?state=open
-[Install Server on Windows]: https://github.com/shadowsocks/shadowsocks/wiki/Install-Shadowsocks-Server-on-Windows
-[Mailing list]:      https://groups.google.com/group/shadowsocks
-[OpenWRT]:           https://github.com/shadowsocks/openwrt-shadowsocks
-[OS X]:              https://github.com/shadowsocks/shadowsocks-iOS/wiki/Shadowsocks-for-OSX-Help
-[PyPI]:              https://pypi.python.org/pypi/shadowsocks
-[PyPI version]:      https://img.shields.io/pypi/v/shadowsocks.svg?style=flat
-[Travis CI]:         https://travis-ci.org/falseen/shadowsocks
-[Troubleshooting]:   https://github.com/shadowsocks/shadowsocks/wiki/Troubleshooting
-[Wiki]:              https://github.com/shadowsocks/shadowsocks/wiki
-[Windows]:           https://github.com/shadowsocks/shadowsocks-csharp
